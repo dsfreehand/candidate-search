@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { searchGithub } from '../api/API';
-import { Candidate } from '../interfaces/Candidate.interface'; // Import the Candidate interface
+import { Candidate } from '../interfaces/Candidate.interface'; 
 
 const CandidateSearch = () => {
-  // Set types for the state variables
-  const [candidates, setCandidates] = useState<Candidate[]>([]); // Typed as Candidate[]
-  const [savedCandidates, setSavedCandidates] = useState<Candidate[]>([]); // Typed as Candidate[]
-  const [message, setMessage] = useState<string>(''); // Message to display when no candidates are found
 
+  const [candidates, setCandidates] = useState<Candidate[]>([]); 
+  const [savedCandidates, setSavedCandidates] = useState<Candidate[]>([]); 
+  const [message, setMessage] = useState<string>(''); 
   useEffect(() => {
     const fetchCandidates = async () => {
       const fetchedCandidates = await searchGithub();
@@ -18,19 +17,18 @@ const CandidateSearch = () => {
       }
     };
 
-    fetchCandidates(); // Ensure fetchCandidates is called inside useEffect
-  }, []); // Empty dependency array ensures this runs once after initial render
+    fetchCandidates(); 
+  }, []); 
 
-  // Function to save a candidate
   const saveCandidate = (candidate: Candidate) => {
     const updatedSavedCandidates = [...savedCandidates, candidate];
     setSavedCandidates(updatedSavedCandidates);
     localStorage.setItem('savedCandidates', JSON.stringify(updatedSavedCandidates));
   };
 
-  // Function to skip a candidate
+
   const skipCandidate = () => {
-    setCandidates((prev) => prev.slice(1)); // Remove the first candidate
+    setCandidates((prev) => prev.slice(1)); 
   };
 
   return (
