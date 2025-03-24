@@ -118,3 +118,89 @@ tbody tr:nth-child(odd) {
   width: 80vw;
   table-layout: fixed;
 }
+
+/* CandidateSearch.css */
+
+/* The main container, which already has your base styles */
+main {
+  color: #fff;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Styling the grid for candidate cards */
+.candidate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Dynamic grid layout */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px; /* Optional, to avoid making the grid too wide */
+}
+
+/* Styling for each candidate card */
+.candidate-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  background-color: #1a1a1a; /* Dark card background to match the site's theme */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.candidate-card:hover {
+  background-color: #333333; /* Slight hover effect */
+}
+
+/* Styling for the candidate avatar */
+.candidate-avatar {
+  width: 80px;  /* Make the image smaller */
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Button styles using existing button styles */
+.candidate-buttons {
+  margin-top: 10px;
+}
+
+button.save-btn {
+  background-color: #646cff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.save-btn:hover {
+  background-color: #535bf2;
+}
+
+button.skip-btn {
+  background-color: #555;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.skip-btn:hover {
+  background-color: #444;
+}
+
+/* Message styling */
+.message {
+  color: white;
+  background-color: #f44336;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
