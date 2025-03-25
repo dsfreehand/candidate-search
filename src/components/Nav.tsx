@@ -1,15 +1,14 @@
-import { Link } from 'react-router-dom'; // Import Link component
+import { Link } from "react-router-dom"; // Import Link component
 
 const Nav = () => {
   return (
     <nav>
       <ul>
-
         <li>
-          <Link to="/">Search</Link> {/* Link to the CandidateSearch page (which is at root "/") */}
+          <Link to="/">Search</Link>
         </li>
         <li>
-          <Link to="/SavedCandidates">Saved Candidates</Link> {/* Link to SavedCandidates page */}
+          <Link to="/SavedCandidates">Saved Candidates</Link>
         </li>
       </ul>
     </nav>
