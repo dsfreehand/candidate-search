@@ -3,7 +3,7 @@ name: Deploy Vite Project
 on:
   push:
     branches:
-      - main  # 👈 Change this to your default branch (e.g., `main` or `master`)
+      - gh-pages  # Ensure you're deploying from the correct branch
 
 jobs:
   build:
@@ -24,11 +24,14 @@ jobs:
       - name: Set up environment variable
         run: echo "VITE_GITHUB_API_KEY=${{ secrets.GITHUB_API_KEY }}" >> $GITHUB_ENV
 
+      - name: Debug environment variables (optional)
+        run: echo "VITE_GITHUB_API_KEY=$VITE_GITHUB_API_KEY"  # Debugging to verify secret injection
+
       - name: Build project
         run: npm run build
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          branch: gh-pages  # 👈 Push to `gh-pages` branch
-          folder: dist       # 👈 Ensure you're deploying from the correct folder
+          publish_dir: ./dist  # Ensure this is your build output directory
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # This token is used for deploying to gh-pages
