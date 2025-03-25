@@ -1,45 +1,60 @@
 import type { Candidate } from "../interfaces/Candidate.interface";
 
+const BASE_URL = "https://api.github.com";
+const apiKey = import.meta.env.VITE_GITHUB_API_KEY; // ✅ Ensure this matches GitHub Secrets & .env.local
+
+const getHeaders = () => ({
+  Authorization: apiKey ? `Bearer ${apiKey}` : "",
+  Accept: "application/vnd.github.v3+json",
+});
+
 const searchGithub = async (): Promise<Candidate[]> => {
   try {
-    const start = Math.floor(Math.random() * 100000000) + 1;
-    console.log(import.meta.env);
-    console.log(import.meta.env.VITE_GITHUB_TOKEN);
-    const response = await fetch(
-      `https://api.github.com/users?since=${start}`,
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-        },
-      }
-    );
-    // console.log('Response:', response);
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error("invalid API response, check the network tab");
+    if (!apiKey) {
+      console.warn(
+        "⚠️ GitHub API key is missing. Using unauthenticated requests (Rate-limited)."
+      );
     }
-    // console.log('Data:', data);
-    return data;
+
+    const start = Math.floor(Math.random() * 100000000) + 1;
+    const response = await fetch(`${BASE_URL}/users?since=${start}`, {
+      headers: getHeaders(),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `GitHub API error ${response.status}: ${response.statusText}`
+      );
+    }
+
+    return await response.json();
   } catch (err) {
-    // console.log('an error occurred', err);
+    console.error("GitHub API error:", err);
     return [];
   }
 };
 
 const searchGithubUser = async (username: string) => {
   try {
-    const response = await fetch(`https://api.github.com/users/${username}`, {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-      },
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error("invalid API response, check the network tab");
+    if (!apiKey) {
+      console.warn(
+        "⚠️ GitHub API key is missing. Using unauthenticated requests (Rate-limited)."
+      );
     }
-    return data;
+
+    const response = await fetch(`${BASE_URL}/users/${username}`, {
+      headers: getHeaders(),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `GitHub API error ${response.status}: ${response.statusText}`
+      );
+    }
+
+    return await response.json();
   } catch (err) {
-    // console.log('an error occurred', err);
+    console.error("GitHub API error:", err);
     return {};
   }
 };
