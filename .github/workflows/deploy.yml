@@ -3,7 +3,7 @@ name: Deploy Vite Project
 on:
   push:
     branches:
-      - gh-pages
+      - main  # 👈 Change this to your default branch (e.g., `main` or `master`)
 
 jobs:
   build:
@@ -27,5 +27,8 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy (Optional)
-        run: echo "Deployment step goes here"
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages  # 👈 Push to `gh-pages` branch
+          folder: dist       # 👈 Ensure you're deploying from the correct folder
